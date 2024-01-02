@@ -1,9 +1,7 @@
-#This code demonstrate how to show the hand pipe line in video capture
 import cv2
 import mediapipe as mp
 
-Nfing = 5
-myname = "Nick"
+myname = "Nick 660610819"
 cap = cv2.VideoCapture(0)
 
 #Call hand pipe line module
@@ -22,51 +20,67 @@ while True:
             for id, lm in enumerate(handLms.landmark):
                 h, w, c = img.shape
                 cx, cy = int(lm.x * w), int(lm.y * h)
-                if id == 4:
-                    id4 = int(id)
-                    cx4 = cx
                 if id == 3:
                     id3 = int(id)
                     cx3 = cx
-                if id == 2:
-                    id2 = int(id)
-                    cx2 = cx
-                if id == 1:
-                    id1 = int(id)
-                    cx1 = cx
-                if id == 0:
-                    id0 = int(id)
-                    cx0 = cx
-                if id == 11:
-                    id11 = int(id)
-                    cx11 = cx
+                if id == 4:
+                    id4 = int(id)
+                    cx4 = cx
+                if id == 6:
+                    id6 = int(id)
+                    cx6 = cy
+                if id == 8:
+                    id8 = int(id)
+                    cx8 = cy
+                if id == 10:
+                    id10 = int(id)
+                    cx10 = cy
                 if id == 12:
                     id12 = int(id)
-                    cx12 = cx
-
-            if cx1 > cx0:
-                Nfing = 1
-            elif cx2 > cx1:
-                Nfing = 2
-            elif cx3 > cx2:
-                Nfing = 3
-            elif cx4 > cx3:
-                Nfing = 4
-            else:
-                Nfing = 5
+                    cx12 = cy
+                if id == 14:
+                    id14 = int(id)
+                    cx14 = cy
+                if id == 16:
+                    id16 = int(id)
+                    cx16 = cy
+                if id == 18:
+                    id18 = int(id)
+                    cx18 = cy
+                if id == 20:
+                    id20 = int(id)
+                    cx20 = cy
             
-            if cx12 > cx11:
-                Nfing = 2
-            
+            finger = ["THUMB","INDEX","MIDDLE","RING","PINKY"]            
 
+            #right hand
+            if cx4 > cx3:
+                cv2.putText(img, str(finger[0]),(250, 450), cv2.FONT_HERSHEY_PLAIN,1.8,
+                (146, 230, 90), 2)
+
+            if cx8 < cx6 :
+                cv2.putText(img, str(finger[1]),(250, 400), cv2.FONT_HERSHEY_PLAIN,1.8,
+                (146, 230, 90), 2)
+
+            if cx12 < cx10 :
+                cv2.putText(img, str(finger[2]),(250, 350), cv2.FONT_HERSHEY_PLAIN,1.8,
+                (146, 230, 90), 2)
+
+            if cx16 < cx14:
+                cv2.putText(img, str(finger[3]),(250, 300 ), cv2.FONT_HERSHEY_PLAIN,1.8,
+                (146, 230, 90), 2)
+                
+            if cx20 < cx18 :
+                cv2.putText(img, str(finger[4]),(250, 250), cv2.FONT_HERSHEY_PLAIN,1.8,
+                (146, 230, 90), 2)   
+            
             mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS)
 
     fps = 30
     
-    cv2.putText(img, str(str(myname)), (450, 430), cv2.FONT_HERSHEY_PLAIN, 3,
-                (107, 226, 255), 3)
-    cv2.putText(img, str(int(Nfing)), (30, 70), cv2.FONT_HERSHEY_PLAIN, 3,
-                (255, 0, 255), 3)            
+    cv2.putText(img, str(str(myname)), (425, 430), cv2.FONT_HERSHEY_PLAIN, 1.4,
+                (107, 226, 255), 2)
+              
     cv2.imshow("Image", img)
     cv2.waitKey(1)
 
